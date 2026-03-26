@@ -11,25 +11,34 @@ import { UserSelector } from './components/UserSelector';
 import { Loader } from './components/Loader';
 import { getUserPosts } from './api/posts';
 import { useAppDispatch, useAppSelector } from './app/hooks';
-import { setPosts, setLoaded, setError } from './features/posts/posts';
+import {
+  setPosts,
+  setLoaded,
+  setError as setErrorUsers,
+} from './features/posts/posts';
+import { setLoaded as setLoadedUsers, setError } from './features/users/users';
 import { setAuthor } from './features/author/author';
 import { setSelectedPost } from './features/selectedPost/selectedPost';
 import { setUsers } from './features/users/users';
 import { getUsers } from './api/users';
 
 export const App: React.FC = () => {
-  const { posts, loaded, hasError } = useAppSelector(state => state.posts);
+  const {
+    items: posts,
+    loaded,
+    hasError,
+  } = useAppSelector(state => state.posts);
   const author = useAppSelector(state => state.author);
   const selectedPost = useAppSelector(state => state.selectedPost);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setLoaded(false));
+    dispatch(setLoadedUsers(false));
 
     getUsers()
       .then(usersFromServer => dispatch(setUsers(usersFromServer)))
-      .catch(() => dispatch(setError(true)))
-      .finally(() => dispatch(setLoaded(true)));
+      .catch(() => dispatch(setErrorUsers(true)))
+      .finally(() => dispatch(setLoadedUsers(true)));
   }, [dispatch]);
 
   function loadUserPosts(userId: number) {
