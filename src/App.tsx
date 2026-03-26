@@ -11,12 +11,11 @@ import { UserSelector } from './components/UserSelector';
 import { Loader } from './components/Loader';
 import { getUserPosts } from './api/posts';
 import { useAppDispatch, useAppSelector } from './app/hooks';
+import { setPosts, setLoaded, setError } from './features/posts/posts';
 import {
-  setPosts,
-  setLoaded,
+  setLoaded as setLoadedUsers,
   setError as setErrorUsers,
-} from './features/posts/posts';
-import { setLoaded as setLoadedUsers, setError } from './features/users/users';
+} from './features/users/users';
 import { setAuthor } from './features/author/author';
 import { setSelectedPost } from './features/selectedPost/selectedPost';
 import { setUsers } from './features/users/users';
